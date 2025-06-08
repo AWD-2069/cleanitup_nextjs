@@ -1,19 +1,34 @@
-image: node:lts
+image: node:lts # Using node:lts is generally recommended for stability
+
+stages:
+  - build
+  - deploy
 
 cache:
+  paths:
+    - node_modules/
+    - .next/cache/ # Cache Next.js build cache for faster subsequent builds
+
+build_job:
+  stage: build
+  script:
+    - npm ci # Install dependencies securely
+    - npm run build # This will generate the 'out' directory if output: 'export' is set in next.config.js
+  artifacts:
     paths:
-        - node_modules/
-        - .next/cache/
+      - out/ # Collect the generated 'out' directory as an artifact
+    expire_in: 1 week
 
 pages:
-    stage: deploy
-    script:
-        - npm install
-        - npm run build
-        - rm -rf public
-        - mv out public
-    artifacts:
-        paths:
-            - public
-    only:
-        - main
+  stage: deploy
+  script:
+    - mv public out # If you have a 'public' directory in your project that Next.js doesn't automatically move to 'out', you might need this.
+                     # However, if 'out' contains everything, you often just move 'out' itself.
+    - mv out public # GitLab Pages expects the static site in a directory named 'public'
+  dependencies:
+    - build_job # Ensure the build_job completes before this job
+  artifacts:
+    paths:
+      - public # Publish the 'public' directory for GitLab Pages
+  only:
+    - main # Deploy only from the main branch

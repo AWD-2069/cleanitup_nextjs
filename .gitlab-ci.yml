@@ -22,26 +22,14 @@ build_job:
 pages:
   stage: deploy
   script:
-    # Ensure the 'public' directory exists and contains your site files.
-    # If Next.js 'export' put everything into 'out', then this move is sufficient.
-    - mv out public 
-
-    # --- Gzip Compression Step ---
-    # Install gzip if not already present (node:lts should have it, but useful if you switch images)
-    # This line is usually not needed for node:lts, but included for completeness:
-    # - apt-get update && apt-get install -y gzip 
-
-    # Find all HTML, CSS, JS, JSON, TXT, XML, and SVG files and gzip them.
-    # -f: Force overwrite any existing .gz files.
-    # -k: Keep the original (uncompressed) file. This is crucial for GitLab Pages.
-    # -6: Set compression level to 6 (a good balance of speed and compression).
-    - find public -type f -regex '.*\.\(html\|css\|js\|json\|txt\|xml\|svg\)$' -exec gzip -f -k -6 {} \;
-    # --- End Gzip Compression Step ---
-    
+    - mv public out # If you have a 'public' directory in your project that Next.js doesn't automatically move to 'out', you might need this.
+                     # However, if 'out' contains everything, you often just move 'out' itself.
+    - mv out public # GitLab Pages expects the static site in a directory named 'public'
+    - find public -type f -regex '.*\.\(htm\|html\|txt\|text\|js\|css\)$' -exec gzip -f -k {} \;
   dependencies:
     - build_job # Ensure the build_job completes before this job
   artifacts:
     paths:
-      - public # Publish the 'public' directory (now containing both original and .gz files) for GitLab Pages
+      - public # Publish the 'public' directory for GitLab Pages
   only:
     - main # Deploy only from the main branch

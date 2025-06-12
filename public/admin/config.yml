@@ -1,0 +1,25 @@
+backend:
+  name: gitlab
+  repo: AWD-2069/cleanitup_nextjs # e.g., myuser/my-decap-cms-project
+  branch: main # or the branch you deploy from (e.g., master, gh-pages)
+  auth_probe_url: https://cleanitup-nextjs-97b4ba.gitlab.io/oauth/authorize # For self-hosted GitLab, replace with your domain
+  base_url: https://cleanitup-nextjs-97b4ba.gitlab.io/ # For self-hosted GitLab, replace with your domain
+  auth_url: /oauth/authorize # Path relative to base_url for authentication
+  app_id: 3d6454e719c150aab704e753209e357ee7a1e2043ceef4a4b2be28c2f37544ac # See next step for how to get this
+  api_root: /api/v4 # GitLab API root
+
+media_folder: "public/images" # Where images uploaded via the CMS will be stored
+public_folder: "/images" # The path to the public folder for images
+
+collections:
+  - name: "blog" # A friendly name for your content type
+    label: "Blog Posts" # The label shown in the CMS UI
+    folder: "content/blog" # The folder where markdown files for blog posts will be stored
+    create: true # Allow creating new posts
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # How file names are generated
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "list", allow_add: true, default: [] }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }

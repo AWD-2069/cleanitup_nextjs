@@ -21,5 +21,5 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Tags", name: "tags", widget: "list", allow_add: true, default: [] }
+      - { label: "Tags", name: "tags", widget: "list", allow_add: false, default: [] }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }

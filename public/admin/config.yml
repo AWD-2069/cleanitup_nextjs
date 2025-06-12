@@ -2,8 +2,8 @@ backend:
   name: gitlab
   repo: AWD-2069/cleanitup_nextjs # e.g., myuser/my-decap-cms-project
   branch: main # or the branch you deploy from (e.g., master, gh-pages)
-  auth_probe_url: https://cleanitup-nextjs-97b4ba.gitlab.io/oauth/authorize # For self-hosted GitLab, replace with your domain
-  base_url: https://cleanitup-nextjs-97b4ba.gitlab.io/ # For self-hosted GitLab, replace with your domain
+  auth_probe_url: https://gitlab.com/oauth/authorize # For self-hosted GitLab, replace with your domain
+  base_url: https://gitlab.com # For self-hosted GitLab, replace with your domain
   auth_url: /oauth/authorize # Path relative to base_url for authentication
   app_id: 3d6454e719c150aab704e753209e357ee7a1e2043ceef4a4b2be28c2f37544ac # See next step for how to get this
   api_root: /api/v4 # GitLab API root
@@ -21,5 +21,5 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Tags", name: "tags", widget: "list", allow_add: false, default: [] }
+      - { label: "Tags", name: "tags", widget: "list", allow_add: true, default: [] }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }

@@ -6,16 +6,3 @@ backend:
 
 media_folder: "public/images" # Where images uploaded via the CMS will be stored
 public_folder: "/images" # The path to the public folder for images
-
-collections:
-  - name: "blog" # A friendly name for your content type
-    label: "Blog Posts" # The label shown in the CMS UI
-    folder: "content/blog" # The folder where markdown files for blog posts will be stored
-    create: true # Allow creating new posts
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # How file names are generated
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Tags", name: "tags", widget: "list", allow_add: true, default: [] }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }

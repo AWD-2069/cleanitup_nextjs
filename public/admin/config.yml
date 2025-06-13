@@ -6,3 +6,16 @@ backend:
 
 media_folder: "public/images" # Where images uploaded via the CMS will be stored
 public_folder: "/images" # The path to the public folder for images
+
+collections:
+   - name: "site_settings" # New collection for site-wide settings
+    label: "Site Settings"
+    files:
+      - label: "Global Message Box"
+        name: "global_message_box"
+        file: "content/settings/global-message.md" # The file Decap CMS will edit
+        fields:
+          - { label: "Enable Message", name: "enabled", widget: "boolean", default: false } # Toggle
+          - { label: "Message Title", name: "title", widget: "string", required: false } # Optional title
+          - { label: "Message Content", name: "content", widget: "markdown", required: false } # The message itself
+          - { label: "Type", name: "type", widget: "select", options: ["info", "warning", "error", "success"], default: "info" }
